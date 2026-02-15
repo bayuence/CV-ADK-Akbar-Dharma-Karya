@@ -10,7 +10,6 @@ export default defineConfig({
   title: "CV ADK - Content Manager",
   projectId,
   dataset,
-  basePath: "/studio",
   plugins: [structureTool()],
   schema: {
     types: schemaTypes,
