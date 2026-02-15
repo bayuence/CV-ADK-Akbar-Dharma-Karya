@@ -4,6 +4,8 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { siteData } from "@/lib/data";
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+
 export default function About() {
   return (
     <section id="tentang" className="relative overflow-hidden bg-background py-24 lg:py-32">
@@ -79,10 +81,13 @@ export default function About() {
                   rel="noopener noreferrer"
                   className="group flex items-center gap-3 rounded-lg border border-border bg-card p-3 transition-all hover:border-primary/30 hover:bg-secondary"
                 >
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10">
-                    <span className="text-xs font-bold text-primary">
-                      {brand.name.charAt(0)}
-                    </span>
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-full bg-primary/10">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={`${basePath}${brand.logo}`}
+                      alt={`Logo ${brand.name}`}
+                      className="h-full w-full object-cover"
+                    />
                   </div>
                   <div>
                     <p className="text-sm font-semibold text-foreground">
