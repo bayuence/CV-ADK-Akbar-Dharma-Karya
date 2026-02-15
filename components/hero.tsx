@@ -38,9 +38,9 @@ export default function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="mb-6 max-w-4xl font-serif text-4xl font-bold leading-tight tracking-tight text-foreground md:text-6xl lg:text-7xl"
+          className="mb-6 whitespace-nowrap font-serif text-[clamp(1.75rem,5vw,4.5rem)] font-bold leading-tight tracking-tight text-foreground"
         >
-          <span className="text-balance">
+          <span>
             {siteData.company.tagline.split(" ").map((word, i) =>
               word === "Konsep" || word === "Nyata" ? (
                 <span key={i} className="text-accent">
