@@ -2,19 +2,19 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { MapPin, Clock } from "lucide-react";
+import { MapPin } from "lucide-react";
 import SectionHeader from "./section-header";
-import { siteData } from "@/lib/data";
+import type { SiteData } from "@/lib/types";
 
-export default function ActiveProjects() {
-  const activeProjects = siteData.projects.filter(
+export default function ActiveProjects({ data }: { data: SiteData }) {
+  const activeProjects = data.projects.filter(
     (p) => p.status === "in-progress"
   );
 
   if (activeProjects.length === 0) return null;
 
   return (
-    <section className="relative bg-background py-24 lg:py-32">
+    <section id="proyek-aktif" className="relative bg-background py-24 lg:py-32">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeader
           label="Sedang Dikerjakan"
@@ -69,10 +69,6 @@ export default function ActiveProjects() {
                   <div className="flex items-center gap-1">
                     <MapPin className="h-3.5 w-3.5" />
                     {project.location}
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <Clock className="h-3.5 w-3.5" />
-                    Dalam Pengerjaan
                   </div>
                 </div>
 

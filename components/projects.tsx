@@ -1,15 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { MapPin, X } from "lucide-react";
 import SectionHeader from "./section-header";
-import { siteData } from "@/lib/data";
+import type { SiteData } from "@/lib/types";
 
 const categories = ["Semua", "Arsitektur", "Interior", "Konstruksi", "Renovasi"];
 
-type Project = (typeof siteData.projects)[number];
+type Project = SiteData["projects"][number];
 
 function ProjectModal({
   project,
@@ -18,6 +18,20 @@ function ProjectModal({
   project: Project;
   onClose: () => void;
 }) {
+  // ESC key to close
+  useEffect(() => {
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") onClose();
+    }
+    document.addEventListener("keydown", handleKeyDown);
+    // Lock body scroll
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = "";
+    };
+  }, [onClose]);
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -25,6 +39,9 @@ function ProjectModal({
       exit={{ opacity: 0 }}
       className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 p-4 backdrop-blur-sm"
       onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-label={project.title}
     >
       <motion.div
         initial={{ opacity: 0, scale: 0.95, y: 20 }}
@@ -105,14 +122,14 @@ function ProjectModal({
   );
 }
 
-export default function Projects() {
+export default function Projects({ data }: { data: SiteData }) {
   const [activeCategory, setActiveCategory] = useState("Semua");
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   const filtered =
     activeCategory === "Semua"
-      ? siteData.projects
-      : siteData.projects.filter((p) => p.category === activeCategory);
+      ? data.projects
+      : data.projects.filter((p) => p.category === activeCategory);
 
   return (
     <section id="proyek" className="relative bg-card py-24 lg:py-32">

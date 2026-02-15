@@ -10,7 +10,7 @@ import {
   MessageSquare,
 } from "lucide-react";
 import SectionHeader from "./section-header";
-import { siteData } from "@/lib/data";
+import type { SiteData } from "@/lib/types";
 
 const iconMap: Record<string, React.ElementType> = {
   building: Building2,
@@ -21,7 +21,7 @@ const iconMap: Record<string, React.ElementType> = {
   chat: MessageSquare,
 };
 
-export default function Services() {
+export default function Services({ data }: { data: SiteData }) {
   return (
     <section id="layanan" className="relative bg-card py-24 lg:py-32">
       {/* Top border accent */}
@@ -35,7 +35,7 @@ export default function Services() {
         />
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {siteData.services.map((service, i) => {
+          {data.services.map((service, i) => {
             const Icon = iconMap[service.icon] || Building2;
             return (
               <motion.div

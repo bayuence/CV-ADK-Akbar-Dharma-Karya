@@ -1,17 +1,18 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Sun, Moon } from "lucide-react";
 import { useTheme } from "next-themes";
-import { siteData } from "@/lib/data";
+import type { SiteData } from "@/lib/types";
 
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
-export default function Navbar() {
+export default function Navbar({ data }: { data: SiteData }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [activeSection, setActiveSection] = useState("beranda");
   const { theme, setTheme } = useTheme();
 
   useEffect(() => {
@@ -25,6 +26,44 @@ export default function Navbar() {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Active section detection via IntersectionObserver
+  const observeSections = useCallback(() => {
+    const sectionIds = data.navLinks.map((l) => l.href.replace("#", ""));
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        }
+      },
+      { rootMargin: "-40% 0px -55% 0px", threshold: 0 }
+    );
+
+    sectionIds.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    return observeSections();
+  }, [observeSections]);
+
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileOpen]);
 
   return (
     <>
@@ -54,13 +93,24 @@ export default function Navbar() {
 
           {/* Desktop Nav */}
           <div className="hidden items-center gap-8 lg:flex">
-            {siteData.navLinks.map((item) => (
+            {data.navLinks.map((item) => (
               <a
                 key={item.href}
                 href={item.href}
-                className="text-sm text-muted-foreground transition-colors hover:text-primary"
+                className={`relative text-sm transition-colors ${
+                  activeSection === item.href.replace("#", "")
+                    ? "font-medium text-primary"
+                    : "text-muted-foreground hover:text-primary"
+                }`}
               >
                 {item.label}
+                {activeSection === item.href.replace("#", "") && (
+                  <motion.span
+                    layoutId="activeNav"
+                    className="absolute -bottom-1 left-0 h-0.5 w-full rounded-full bg-primary"
+                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                  />
+                )}
               </a>
             ))}
           </div>
@@ -113,12 +163,16 @@ export default function Navbar() {
             className="fixed inset-x-0 top-[65px] z-40 border-b border-border bg-background/95 backdrop-blur-xl lg:hidden"
           >
             <div className="flex flex-col px-4 py-6">
-              {siteData.navLinks.map((item) => (
+              {data.navLinks.map((item) => (
                 <a
                   key={item.href}
                   href={item.href}
                   onClick={() => setMobileOpen(false)}
-                  className="border-b border-border/50 py-3 text-sm text-muted-foreground transition-colors hover:text-primary"
+                  className={`border-b border-border/50 py-3 text-sm transition-colors ${
+                    activeSection === item.href.replace("#", "")
+                      ? "font-medium text-primary"
+                      : "text-muted-foreground hover:text-primary"
+                  }`}
                 >
                   {item.label}
                 </a>

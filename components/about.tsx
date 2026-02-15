@@ -2,11 +2,11 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { siteData } from "@/lib/data";
+import type { SiteData } from "@/lib/types";
 
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
-export default function About() {
+export default function About({ data }: { data: SiteData }) {
   return (
     <section id="tentang" className="relative overflow-hidden bg-background py-24 lg:py-32">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -37,7 +37,7 @@ export default function About() {
               transition={{ duration: 0.5, delay: 0.4 }}
               className="absolute -bottom-6 -right-4 rounded-xl border border-border bg-card p-6 shadow-2xl shadow-primary/5 md:-right-8"
             >
-              <p className="font-serif text-3xl font-bold text-primary">{siteData.stats[1].number}</p>
+              <p className="font-serif text-3xl font-bold text-primary">{data.stats[1].number}</p>
               <p className="text-sm text-muted-foreground">
                 Tahun Pengalaman
               </p>
@@ -62,7 +62,7 @@ export default function About() {
               </span>
             </h2>
             <p className="mb-4 text-muted-foreground leading-relaxed">
-              {siteData.company.description}
+              {data.company.description}
             </p>
             <p className="mb-8 text-muted-foreground leading-relaxed">
               Dengan tim profesional yang berpengalaman, kami menghadirkan solusi
@@ -73,7 +73,7 @@ export default function About() {
 
             {/* Sub-brands */}
             <div className="mb-8 flex flex-col gap-3 sm:flex-row">
-              {siteData.company.subBrands.map((brand) => (
+              {data.company.subBrands.map((brand) => (
                 <a
                   key={brand.handle}
                   href={brand.instagram}
@@ -103,7 +103,7 @@ export default function About() {
 
             {/* Stats */}
             <div className="flex gap-8">
-              {siteData.stats.map((stat, i) => (
+              {data.stats.map((stat, i) => (
                 <motion.div
                   key={stat.label}
                   initial={{ opacity: 0, y: 20 }}

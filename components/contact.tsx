@@ -4,10 +4,10 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { MapPin, Phone, Mail, Send } from "lucide-react";
 import SectionHeader from "./section-header";
-import { siteData } from "@/lib/data";
+import type { SiteData } from "@/lib/types";
 import { WhatsAppIcon } from "./icons/whatsapp";
 
-export default function Contact() {
+export default function Contact({ data }: { data: SiteData }) {
   const [formState, setFormState] = useState({
     name: "",
     phone: "",
@@ -19,13 +19,25 @@ export default function Contact() {
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    // Build WhatsApp message
-    const text = `Halo, saya ${formState.name}.%0A%0ALayanan: ${formState.service}%0APesan: ${formState.message}%0A%0ATelepon: ${formState.phone}%0AEmail: ${formState.email}`;
+    // Build WhatsApp message with proper encoding
+    const message = [
+      `Halo, saya ${formState.name}.`,
+      ``,
+      `Layanan: ${formState.service}`,
+      `Pesan: ${formState.message}`,
+      ``,
+      `Telepon: ${formState.phone}`,
+      formState.email ? `Email: ${formState.email}` : "",
+    ]
+      .filter(Boolean)
+      .join("\n");
     window.open(
-      `${siteData.company.whatsapp}?text=${text}`,
+      `${data.company.whatsapp}?text=${encodeURIComponent(message)}`,
       "_blank"
     );
     setSubmitted(true);
+    // Reset form after sending
+    setFormState({ name: "", phone: "", email: "", service: "", message: "" });
     setTimeout(() => setSubmitted(false), 3000);
   }
 
@@ -128,7 +140,7 @@ export default function Contact() {
                   className="w-full rounded-lg border border-border bg-card px-4 py-3 text-sm text-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
                 >
                   <option value="">Pilih Layanan</option>
-                  {siteData.services.map((s) => (
+                  {data.services.map((s) => (
                     <option key={s.id} value={s.title}>
                       {s.title}
                     </option>
@@ -163,7 +175,7 @@ export default function Contact() {
                 className="inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-8 py-3.5 text-sm font-semibold text-primary-foreground transition-all hover:bg-primary/90 disabled:opacity-50"
               >
                 {submitted ? (
-                  "Terkirim!"
+                  "Membuka WhatsApp..."
                 ) : (
                   <>
                     Kirim Pesan
@@ -191,37 +203,43 @@ export default function Contact() {
                 <div>
                   <p className="text-sm font-semibold text-foreground">Alamat</p>
                   <p className="text-sm text-muted-foreground">
-                    {siteData.company.address}
+                    {data.company.address}
                   </p>
                 </div>
               </div>
-              <div className="flex items-start gap-4 rounded-lg border border-border bg-card p-4">
+              <a
+                href={`tel:${data.company.phone}`}
+                className="flex items-start gap-4 rounded-lg border border-border bg-card p-4 transition-all hover:border-primary/30"
+              >
                 <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10">
                   <Phone className="h-5 w-5 text-primary" />
                 </div>
                 <div>
                   <p className="text-sm font-semibold text-foreground">Telepon</p>
                   <p className="text-sm text-muted-foreground">
-                    {siteData.company.phone}
+                    {data.company.phone}
                   </p>
                 </div>
-              </div>
-              <div className="flex items-start gap-4 rounded-lg border border-border bg-card p-4">
+              </a>
+              <a
+                href={`mailto:${data.company.email}`}
+                className="flex items-start gap-4 rounded-lg border border-border bg-card p-4 transition-all hover:border-primary/30"
+              >
                 <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10">
                   <Mail className="h-5 w-5 text-primary" />
                 </div>
                 <div>
                   <p className="text-sm font-semibold text-foreground">Email</p>
                   <p className="text-sm text-muted-foreground">
-                    {siteData.company.email}
+                    {data.company.email}
                   </p>
                 </div>
-              </div>
+              </a>
             </div>
 
             {/* WhatsApp CTA */}
             <a
-              href={siteData.company.whatsapp}
+              href={data.company.whatsapp}
               target="_blank"
               rel="noopener noreferrer"
               className="group flex items-center justify-center gap-3 rounded-lg bg-[#25D366] px-6 py-4 text-sm font-semibold text-white transition-all hover:bg-[#22c55e]"
@@ -233,7 +251,7 @@ export default function Contact() {
             {/* Map */}
             <div className="overflow-hidden rounded-lg border border-border">
               <iframe
-                src={siteData.company.mapEmbedUrl}
+                src={data.company.mapEmbedUrl}
                 width="100%"
                 height="250"
                 style={{ border: 0 }}

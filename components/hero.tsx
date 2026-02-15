@@ -3,12 +3,12 @@
 import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 import { ArrowDown } from "lucide-react";
-import { siteData } from "@/lib/data";
 import { WhatsAppIcon } from "./icons/whatsapp";
+import type { SiteData } from "@/lib/types";
 
 const Scene3D = dynamic(() => import("./scene-3d"), { ssr: false });
 
-export default function Hero() {
+export default function Hero({ data }: { data: SiteData }) {
   return (
     <section
       id="beranda"
@@ -30,7 +30,7 @@ export default function Hero() {
           className="mb-6"
         >
           <span className="inline-block rounded-full border border-primary/30 bg-primary/10 px-4 py-1.5 text-sm tracking-widest text-primary">
-            {siteData.company.shortDesc}
+            {data.company.shortDesc}
           </span>
         </motion.div>
 
@@ -38,10 +38,10 @@ export default function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="mb-6 whitespace-nowrap font-serif text-[clamp(1.75rem,5vw,4.5rem)] font-bold leading-tight tracking-tight text-foreground"
+          className="mb-6 font-serif text-[clamp(1.5rem,5vw,4.5rem)] font-bold leading-tight tracking-tight text-foreground text-balance"
         >
           <span>
-            {siteData.company.tagline.split(" ").map((word, i) =>
+            {data.company.tagline.split(" ").map((word, i) =>
               word === "Konsep" || word === "Nyata" ? (
                 <span key={i} className="text-accent">
                   {word}{" "}
@@ -59,7 +59,7 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.6 }}
           className="mb-10 max-w-2xl text-balance text-base text-muted-foreground md:text-lg"
         >
-          {siteData.company.description}
+          {data.company.description}
         </motion.p>
 
         <motion.div
@@ -69,7 +69,7 @@ export default function Hero() {
           className="flex flex-col gap-4 sm:flex-row"
         >
           <a
-            href={siteData.company.whatsapp}
+            href={data.company.whatsapp}
             target="_blank"
             rel="noopener noreferrer"
             className="group inline-flex items-center gap-2 rounded-full bg-primary px-8 py-3.5 text-sm font-semibold text-primary-foreground transition-all hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/25"

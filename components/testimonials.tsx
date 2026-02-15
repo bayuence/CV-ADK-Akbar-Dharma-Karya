@@ -1,30 +1,61 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect, useCallback, useRef } from "react";
+import { motion, AnimatePresence, type PanInfo } from "framer-motion";
 import { Star, ChevronLeft, ChevronRight, Quote } from "lucide-react";
 import SectionHeader from "./section-header";
-import { siteData } from "@/lib/data";
+import type { SiteData } from "@/lib/types";
 
-export default function Testimonials() {
+export default function Testimonials({ data }: { data: SiteData }) {
   const [current, setCurrent] = useState(0);
-  const items = siteData.testimonials;
+  const [isPaused, setIsPaused] = useState(false);
+  const [direction, setDirection] = useState(1);
+  const items = data.testimonials;
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const next = useCallback(() => {
+    setDirection(1);
     setCurrent((prev) => (prev + 1) % items.length);
   }, [items.length]);
 
   const prev = useCallback(() => {
+    setDirection(-1);
     setCurrent((p) => (p - 1 + items.length) % items.length);
   }, [items.length]);
 
+  const goTo = useCallback(
+    (i: number) => {
+      setDirection(i > current ? 1 : -1);
+      setCurrent(i);
+    },
+    [current]
+  );
+
+  // Auto-play with pause-on-hover
   useEffect(() => {
+    if (isPaused) return;
     const timer = setInterval(next, 5000);
     return () => clearInterval(timer);
-  }, [next]);
+  }, [next, isPaused]);
+
+  // Swipe handler
+  function handleDragEnd(_: unknown, info: PanInfo) {
+    const threshold = 50;
+    if (info.offset.x < -threshold) {
+      next();
+    } else if (info.offset.x > threshold) {
+      prev();
+    }
+  }
+
+  const variants = {
+    enter: (d: number) => ({ opacity: 0, x: d > 0 ? 80 : -80 }),
+    center: { opacity: 1, x: 0 },
+    exit: (d: number) => ({ opacity: 0, x: d > 0 ? -80 : 80 }),
+  };
 
   return (
-    <section className="relative bg-card py-24 lg:py-32">
+    <section id="testimoni" className="relative bg-card py-24 lg:py-32">
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -34,15 +65,28 @@ export default function Testimonials() {
           description="Kepuasan klien adalah prioritas utama kami."
         />
 
-        <div className="relative mx-auto max-w-3xl">
-          <AnimatePresence mode="wait">
+        <div
+          ref={containerRef}
+          className="relative mx-auto max-w-3xl"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+          onTouchStart={() => setIsPaused(true)}
+          onTouchEnd={() => setIsPaused(false)}
+        >
+          <AnimatePresence mode="wait" custom={direction}>
             <motion.div
               key={current}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
+              custom={direction}
+              variants={variants}
+              initial="enter"
+              animate="center"
+              exit="exit"
               transition={{ duration: 0.4 }}
-              className="flex flex-col items-center text-center"
+              drag="x"
+              dragConstraints={{ left: 0, right: 0 }}
+              dragElastic={0.2}
+              onDragEnd={handleDragEnd}
+              className="flex cursor-grab flex-col items-center text-center active:cursor-grabbing"
             >
               <Quote className="mb-6 h-10 w-10 text-primary/30" />
 
@@ -60,6 +104,14 @@ export default function Testimonials() {
               </div>
 
               <div>
+                <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-lg font-bold text-primary">
+                  {items[current].name
+                    .split(" ")
+                    .filter((w) => w.length > 2)
+                    .slice(0, 2)
+                    .map((w) => w[0])
+                    .join("")}
+                </div>
                 <p className="font-semibold text-foreground">
                   {items[current].name}
                 </p>
@@ -85,7 +137,7 @@ export default function Testimonials() {
               {items.map((_, i) => (
                 <button
                   key={i}
-                  onClick={() => setCurrent(i)}
+                  onClick={() => goTo(i)}
                   suppressHydrationWarning
                   className={`h-2 rounded-full transition-all ${
                     i === current

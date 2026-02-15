@@ -2,9 +2,9 @@
 
 import { motion } from "framer-motion";
 import SectionHeader from "./section-header";
-import { siteData } from "@/lib/data";
+import type { SiteData } from "@/lib/types";
 
-export default function Process() {
+export default function Process({ data }: { data: SiteData }) {
   return (
     <section id="proses" className="relative bg-background py-24 lg:py-32">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -19,7 +19,7 @@ export default function Process() {
           <div className="absolute left-1/2 top-0 hidden h-full w-px -translate-x-1/2 bg-gradient-to-b from-primary/30 via-primary/10 to-transparent lg:block" />
 
           <div className="flex flex-col gap-8 lg:gap-0">
-            {siteData.process.map((step, i) => {
+            {data.process.map((step, i) => {
               const isLeft = i % 2 === 0;
               return (
                 <motion.div
@@ -37,7 +37,16 @@ export default function Process() {
                     className={`flex-1 ${isLeft ? "lg:pr-16 lg:text-right" : "lg:pl-16"}`}
                   >
                     <div className="rounded-xl border border-border bg-card p-6 transition-all hover:border-primary/30">
-                      <span className="mb-2 inline-block text-xs font-medium uppercase tracking-widest text-primary">
+                      {/* Mobile step number */}
+                      <div className="mb-3 flex items-center gap-3 lg:hidden">
+                        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-2 border-primary bg-background">
+                          <span className="text-xs font-bold text-primary">
+                            {step.step}
+                          </span>
+                        </div>
+                        <div className="h-px flex-1 bg-gradient-to-r from-primary/30 to-transparent" />
+                      </div>
+                      <span className="mb-2 inline-block text-xs font-medium uppercase tracking-widest text-primary lg:block hidden">
                         Langkah {step.step}
                       </span>
                       <h3 className="mb-2 text-lg font-semibold text-foreground">

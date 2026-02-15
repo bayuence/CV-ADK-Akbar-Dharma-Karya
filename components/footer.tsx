@@ -1,9 +1,9 @@
-import { siteData } from "@/lib/data";
 import { WhatsAppIcon } from "./icons/whatsapp";
+import type { SiteData } from "@/lib/types";
 
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
-export default function Footer() {
+export default function Footer({ data }: { data: SiteData }) {
   return (
     <footer className="border-t border-border bg-card">
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
@@ -22,12 +22,12 @@ export default function Footer() {
               </span>
             </div>
             <p className="mb-6 max-w-xs text-sm leading-relaxed text-muted-foreground">
-              {siteData.company.description}
+              {data.company.description}
             </p>
             {/* Social icons */}
             <div className="flex gap-3">
               <a
-                href={siteData.company.instagram}
+                href={data.company.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex h-9 w-9 items-center justify-center rounded-lg border border-border bg-background text-muted-foreground transition-all hover:border-primary/30 hover:text-primary"
@@ -38,7 +38,7 @@ export default function Footer() {
                 </svg>
               </a>
               <a
-                href={siteData.company.facebook}
+                href={data.company.facebook}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex h-9 w-9 items-center justify-center rounded-lg border border-border bg-background text-muted-foreground transition-all hover:border-primary/30 hover:text-primary"
@@ -49,13 +49,24 @@ export default function Footer() {
                 </svg>
               </a>
               <a
-                href={siteData.company.whatsapp}
+                href={data.company.whatsapp}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex h-9 w-9 items-center justify-center rounded-lg border border-border bg-background text-muted-foreground transition-all hover:border-primary/30 hover:text-primary"
                 aria-label="WhatsApp"
               >
                 <WhatsAppIcon className="h-4 w-4" />
+              </a>
+              <a
+                href={data.company.linktree}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex h-9 w-9 items-center justify-center rounded-lg border border-border bg-background text-muted-foreground transition-all hover:border-primary/30 hover:text-primary"
+                aria-label="Linktree"
+              >
+                <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M8.92 1.64L6.11 4.46 8.83 7.18 6.11 9.9 8.92 12.72 11.64 10 14.35 12.72 17.17 9.9 14.45 7.18 17.17 4.46 14.35 1.64 11.64 4.36 8.92 1.64ZM10.18 14.18H13.09V22.36H10.18V14.18Z" />
+                </svg>
               </a>
             </div>
           </div>
@@ -66,7 +77,7 @@ export default function Footer() {
               Navigasi
             </h3>
             <ul className="flex flex-col gap-3">
-              {siteData.navLinks.map((link) => (
+              {data.navLinks.map((link) => (
                 <li key={link.href}>
                   <a
                     href={link.href}
@@ -85,11 +96,14 @@ export default function Footer() {
               Layanan
             </h3>
             <ul className="flex flex-col gap-3">
-              {siteData.services.map((service) => (
+              {data.services.map((service) => (
                 <li key={service.id}>
-                  <span className="text-sm text-muted-foreground">
+                  <a
+                    href="#kontak"
+                    className="text-sm text-muted-foreground transition-colors hover:text-primary"
+                  >
                     {service.title}
-                  </span>
+                  </a>
                 </li>
               ))}
             </ul>
@@ -100,8 +114,8 @@ export default function Footer() {
         <div className="mt-12 border-t border-border pt-8">
           <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
             <p className="text-sm text-muted-foreground">
-              &copy; {new Date().getFullYear()} {siteData.company.name}. All
-              rights reserved.
+              &copy; {new Date().getFullYear()} {data.company.name}. Hak
+              cipta dilindungi undang-undang.
             </p>
             <p className="text-sm text-muted-foreground">
               Yogyakarta, Indonesia

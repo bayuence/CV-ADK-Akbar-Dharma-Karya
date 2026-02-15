@@ -17,6 +17,11 @@ const playfair = Playfair_Display({
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
 export const metadata: Metadata = {
+  metadataBase: new URL(
+    process.env.NODE_ENV === "production"
+      ? "https://bayuence.github.io/CV-ADK-Akbar-Dharma-Karya"
+      : "http://localhost:3000"
+  ),
   title: "CV ADK | Akbar Dharma Karya",
   description:
     "CV Akbar Dharma Karya melayani jasa arsitek, konstruksi, dan desain interior dengan sentuhan modern dan profesional. Dari konsep hingga jadi nyata.",
@@ -47,6 +52,21 @@ export const metadata: Metadata = {
       "Dari konsep hingga jadi nyata. Jasa arsitek, konstruksi, dan desain interior modern di Jogja.",
     type: "website",
     locale: "id_ID",
+    images: [
+      {
+        url: `${basePath}/og-image.png`,
+        width: 1200,
+        height: 630,
+        alt: "CV Akbar Dharma Karya - Dari Konsep Hingga Jadi Nyata",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "CV ADK | Akbar Dharma Karya",
+    description:
+      "Dari konsep hingga jadi nyata. Jasa arsitek, konstruksi, dan desain interior modern di Jogja.",
+    images: [`${basePath}/og-image.png`],
   },
 };
 

@@ -9,21 +9,24 @@ import Testimonials from "@/components/testimonials";
 import Contact from "@/components/contact";
 import Footer from "@/components/footer";
 import WhatsAppFloat from "@/components/whatsapp-float";
+import { getSiteData } from "@/sanity/lib/queries";
 
-export default function Home() {
+export default async function Home() {
+  const data = await getSiteData();
+
   return (
     <main>
-      <Navbar />
-      <Hero />
-      <About />
-      <Services />
-      <Projects />
-      <ActiveProjects />
-      <Process />
-      <Testimonials />
-      <Contact />
-      <Footer />
-      <WhatsAppFloat />
+      <Navbar data={data} />
+      <Hero data={data} />
+      <About data={data} />
+      <Services data={data} />
+      <Projects data={data} />
+      <ActiveProjects data={data} />
+      <Process data={data} />
+      <Testimonials data={data} />
+      <Contact data={data} />
+      <Footer data={data} />
+      <WhatsAppFloat data={data} />
     </main>
   );
 }

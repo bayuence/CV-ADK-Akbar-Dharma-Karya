@@ -1,13 +1,13 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { siteData } from "@/lib/data";
 import { WhatsAppIcon } from "./icons/whatsapp";
+import type { SiteData } from "@/lib/types";
 
-export default function WhatsAppFloat() {
+export default function WhatsAppFloat({ data }: { data: SiteData }) {
   return (
     <motion.a
-      href={siteData.company.whatsapp}
+      href={data.company.whatsapp}
       target="_blank"
       rel="noopener noreferrer"
       initial={{ scale: 0 }}
