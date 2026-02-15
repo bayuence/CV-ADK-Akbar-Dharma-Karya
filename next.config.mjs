@@ -1,12 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: "export",
+  basePath: "/CV-ADK-Akbar-Dharma-Karya",
+  env: {
+    NEXT_PUBLIC_BASE_PATH: "/CV-ADK-Akbar-Dharma-Karya",
+  },
   images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "images.unsplash.com",
-      },
-    ],
+    unoptimized: true,
   },
 }
 

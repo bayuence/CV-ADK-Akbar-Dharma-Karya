@@ -1,6 +1,8 @@
 import { siteData } from "@/lib/data";
 import { WhatsAppIcon } from "./icons/whatsapp";
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+
 export default function Footer() {
   return (
     <footer className="border-t border-border bg-card">
@@ -11,7 +13,7 @@ export default function Footer() {
             <div className="mb-4 flex items-center gap-3">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/logoOnly-ADK.png"
+                src={`${basePath}/logoOnly-ADK.png`}
                 alt="Logo CV Akbar Dharma Karya"
                 className="h-10 w-auto sm:h-12"
               />

@@ -6,6 +6,8 @@ import { Menu, X, Sun, Moon } from "lucide-react";
 import { useTheme } from "next-themes";
 import { siteData } from "@/lib/data";
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -41,7 +43,7 @@ export default function Navbar() {
           <a href="#beranda" className="flex items-center gap-3">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/logoOnly-ADK.png"
+              src={`${basePath}/logoOnly-ADK.png`}
               alt="Logo CV Akbar Dharma Karya"
               className="h-10 w-auto sm:h-12"
             />
