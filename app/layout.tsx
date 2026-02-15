@@ -18,6 +18,7 @@ export const metadata: Metadata = {
   title: "CV ADK | Akbar Dharma Karya",
   description:
     "CV Akbar Dharma Karya melayani jasa arsitek, konstruksi, dan desain interior dengan sentuhan modern dan profesional. Dari konsep hingga jadi nyata.",
+  manifest: "/manifest.json",
   keywords: [
     "arsitek jogja",
     "konstruksi jogja",
@@ -29,8 +30,14 @@ export const metadata: Metadata = {
     "CV Akbar Dharma Karya",
   ],
   icons: {
-    icon: "/logoOnly-ADK.png",
-    apple: "/logoOnly-ADK.png",
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/icon-192x192.png", sizes: "192x192", type: "image/png" },
+      { url: "/icon-512x512.png", sizes: "512x512", type: "image/png" },
+    ],
+    apple: "/apple-touch-icon.png",
   },
   openGraph: {
     title: "CV ADK | Akbar Dharma Karya",
@@ -42,7 +49,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0a0a0a",
+  themeColor: "#0f172a",
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,

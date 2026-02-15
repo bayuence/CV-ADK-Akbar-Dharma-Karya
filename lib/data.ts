@@ -20,15 +20,15 @@ export const siteData = {
     description:
       "CV Akbar Dharma Karya melayani jasa arsitek, konstruksi, dan desain interior dengan sentuhan modern dan profesional.",
     shortDesc: "Design \u2022 Build \u2022 Interior",
-    phone: "+6281234567890",
+    phone: "+6281390788045",
     email: "akbardharmakarya@gmail.com",
-    address: "Potorono, Banguntapan, Bantul, Yogyakarta",
+    address: "Perumahan Laguna Spring Hill Blok A No. 3, Kabupaten Bantul, Daerah Istimewa Yogyakarta 55198",
     instagram: "https://instagram.com/akbar.dharmakarya",
     facebook: "https://facebook.com/AkbarDharmaKarya",
-    whatsapp: "https://wa.me/6281234567890",
+    whatsapp: "https://wa.me/6281390788045",
     linktree: "https://linktr.ee/akbardharmakarya",
     mapEmbedUrl:
-      "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3953.1!2d110.42!3d-7.82!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zN8KwNDknMTIuMCJTIDExMMKwMjUnMTIuMCJF!5e0!3m2!1sid!2sid!4v1!5m2!1sid!2sid",
+      "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1976.5!2d110.4211283!3d-7.8350953!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a57170f775ffd%3A0x941ebb717a66a30!2sCV%20Akbar%20Dharma%20Karya!5e0!3m2!1sid!2sid!4v1",
     subBrands: [
       {
         name: "Bagusin Studio",

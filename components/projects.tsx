@@ -62,7 +62,7 @@ function ProjectModal({
               className={`rounded-full px-3 py-1 text-xs font-medium ${
                 project.status === "completed"
                   ? "bg-green-500/10 text-green-400"
-                  : "bg-yellow-500/10 text-yellow-400"
+                  : "bg-orange-500/10 text-orange-400"
               }`}
             >
               {project.status === "completed"
@@ -172,7 +172,7 @@ export default function Projects() {
                       className={`rounded-full px-2.5 py-1 text-xs font-medium backdrop-blur-sm ${
                         project.status === "completed"
                           ? "bg-green-500/20 text-green-300"
-                          : "bg-yellow-500/20 text-yellow-300"
+                          : "bg-orange-500/20 text-orange-300"
                       }`}
                     >
                       {project.status === "completed"
