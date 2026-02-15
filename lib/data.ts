@@ -24,7 +24,7 @@ export const siteData = {
     email: "akbardharmakarya@gmail.com",
     address: "Perumahan Laguna Spring Hill Blok A No. 3, Kabupaten Bantul, Daerah Istimewa Yogyakarta 55198",
     instagram: "https://instagram.com/akbar.dharmakarya",
-    facebook: "https://facebook.com/AkbarDharmaKarya",
+    facebook: "https://www.facebook.com/profile.php?id=61579816186806",
     whatsapp: "https://wa.me/6281390788045",
     linktree: "https://linktr.ee/akbardharmakarya",
     mapEmbedUrl:

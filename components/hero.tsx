@@ -18,8 +18,8 @@ export default function Hero() {
       <Scene3D />
 
       {/* Gradient overlays */}
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-background/80 via-background/40 to-background" />
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-background/60 via-transparent to-background/60" />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-background/60 via-transparent to-background/80" />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-background/40 via-transparent to-background/40" />
 
       {/* Content */}
       <div className="relative z-10 flex flex-col items-center px-4 text-center">
@@ -43,7 +43,7 @@ export default function Hero() {
           <span className="text-balance">
             {siteData.company.tagline.split(" ").map((word, i) =>
               word === "Konsep" || word === "Nyata" ? (
-                <span key={i} className="text-primary">
+                <span key={i} className="text-accent">
                   {word}{" "}
                 </span>
               ) : (

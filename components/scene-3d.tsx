@@ -19,17 +19,17 @@ export default function Scene3D() {
   const timeRef = useRef(0);
 
   const initParticles = useCallback((width: number, height: number) => {
-    const count = Math.min(120, Math.floor((width * height) / 8000));
+    const count = Math.min(180, Math.floor((width * height) / 5000));
     const particles: Particle[] = [];
     for (let i = 0; i < count; i++) {
       particles.push({
         x: Math.random() * width,
         y: Math.random() * height,
         z: Math.random(),
-        vx: (Math.random() - 0.5) * 0.3,
-        vy: (Math.random() - 0.5) * 0.3,
-        size: Math.random() * 2 + 0.5,
-        opacity: Math.random() * 0.5 + 0.1,
+        vx: (Math.random() - 0.5) * 0.4,
+        vy: (Math.random() - 0.5) * 0.4,
+        size: Math.random() * 2.5 + 1,
+        opacity: Math.random() * 0.5 + 0.3,
       });
     }
     particlesRef.current = particles;
@@ -66,7 +66,7 @@ export default function Scene3D() {
       const style = getComputedStyle(document.documentElement);
       const primary = style.getPropertyValue("--primary").trim();
       const isDark = document.documentElement.classList.contains("dark");
-      const gridAlpha = isDark ? 0.02 : 0.06;
+      const gridAlpha = isDark ? 0.06 : 0.08;
 
       ctx.clearRect(0, 0, w, h);
 
@@ -89,23 +89,31 @@ export default function Scene3D() {
         if (p.y > h + 10) p.y = -10;
 
         // Draw particle
-        const pulse = 0.7 + Math.sin(timeRef.current * 2 + i) * 0.3;
+        const pulse = 0.8 + Math.sin(timeRef.current * 2 + i) * 0.2;
         ctx.beginPath();
-        ctx.arc(p.x, p.y, p.size * (0.5 + p.z * 0.5), 0, Math.PI * 2);
+        ctx.arc(p.x, p.y, p.size * (0.6 + p.z * 0.6), 0, Math.PI * 2);
         ctx.fillStyle = `hsl(${primary} / ${p.opacity * pulse})`;
         ctx.fill();
+
+        // Glow effect for larger particles
+        if (p.size > 2) {
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.size * 2.5, 0, Math.PI * 2);
+          ctx.fillStyle = `hsl(${primary} / ${p.opacity * pulse * 0.15})`;
+          ctx.fill();
+        }
       }
 
       // Draw connections
-      ctx.lineWidth = 0.5;
+      ctx.lineWidth = 0.6;
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
           const dx = particles[i].x - particles[j].x;
           const dy = particles[i].y - particles[j].y;
           const dist = dx * dx + dy * dy;
-          const maxDist = 18000;
+          const maxDist = 22000;
           if (dist < maxDist) {
-            const alpha = (1 - dist / maxDist) * 0.12;
+            const alpha = (1 - dist / maxDist) * 0.25;
             ctx.beginPath();
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);

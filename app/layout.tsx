@@ -14,11 +14,12 @@ const playfair = Playfair_Display({
   variable: "--font-serif",
 });
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+
 export const metadata: Metadata = {
   title: "CV ADK | Akbar Dharma Karya",
   description:
     "CV Akbar Dharma Karya melayani jasa arsitek, konstruksi, dan desain interior dengan sentuhan modern dan profesional. Dari konsep hingga jadi nyata.",
-  manifest: "/manifest.json",
   keywords: [
     "arsitek jogja",
     "konstruksi jogja",
@@ -31,14 +32,15 @@ export const metadata: Metadata = {
   ],
   icons: {
     icon: [
-      { url: "/favicon.ico", sizes: "any" },
-      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
-      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
-      { url: "/icon-192x192.png", sizes: "192x192", type: "image/png" },
-      { url: "/icon-512x512.png", sizes: "512x512", type: "image/png" },
+      { url: `${basePath}/favicon.ico`, sizes: "any" },
+      { url: `${basePath}/favicon-16x16.png`, sizes: "16x16", type: "image/png" },
+      { url: `${basePath}/favicon-32x32.png`, sizes: "32x32", type: "image/png" },
+      { url: `${basePath}/icon-192x192.png`, sizes: "192x192", type: "image/png" },
+      { url: `${basePath}/icon-512x512.png`, sizes: "512x512", type: "image/png" },
     ],
-    apple: "/apple-touch-icon.png",
+    apple: `${basePath}/apple-touch-icon.png`,
   },
+  manifest: `${basePath}/manifest.json`,
   openGraph: {
     title: "CV ADK | Akbar Dharma Karya",
     description:

@@ -35,24 +35,24 @@
 /* ===== Light Theme (default) ===== */
 :root {
   --background: 0 0% 100%;
-  --foreground: 210 30% 12%;
+  --foreground: 215 30% 12%;
   --card: 210 20% 97%;
-  --card-foreground: 210 30% 12%;
+  --card-foreground: 215 30% 12%;
   --popover: 0 0% 100%;
-  --popover-foreground: 210 30% 12%;
-  --primary: 24 85% 50%;
+  --popover-foreground: 215 30% 12%;
+  --primary: 215 70% 35%;
   --primary-foreground: 0 0% 100%;
   --secondary: 210 20% 93%;
-  --secondary-foreground: 210 30% 12%;
+  --secondary-foreground: 215 30% 12%;
   --muted: 210 15% 93%;
   --muted-foreground: 210 10% 40%;
-  --accent: 210 70% 35%;
+  --accent: 24 85% 50%;
   --accent-foreground: 0 0% 100%;
   --destructive: 0 84.2% 60.2%;
   --destructive-foreground: 0 0% 98%;
   --border: 210 15% 88%;
   --input: 210 15% 88%;
-  --ring: 24 85% 50%;
+  --ring: 215 70% 35%;
   --radius: 0.75rem;
 }
 
@@ -64,19 +64,19 @@
   --card-foreground: 210 15% 95%;
   --popover: 215 25% 10%;
   --popover-foreground: 210 15% 95%;
-  --primary: 24 85% 52%;
+  --primary: 215 65% 45%;
   --primary-foreground: 0 0% 100%;
   --secondary: 215 20% 15%;
   --secondary-foreground: 210 15% 95%;
   --muted: 215 20% 15%;
   --muted-foreground: 210 10% 55%;
-  --accent: 210 60% 45%;
+  --accent: 24 85% 52%;
   --accent-foreground: 0 0% 100%;
   --destructive: 0 84.2% 60.2%;
   --destructive-foreground: 0 0% 98%;
   --border: 215 20% 16%;
   --input: 215 20% 16%;
-  --ring: 24 85% 52%;
+  --ring: 215 65% 45%;
 }
 
 /* ===== Base Styles ===== */
