@@ -1,11 +1,10 @@
 /** @type {import('next').NextConfig} */
-const isProd = process.env.NODE_ENV === "production";
 const isGitHubPages = process.env.GITHUB_PAGES === "true";
+const isStaticExport = process.env.STATIC_EXPORT === "true" || isGitHubPages;
 
 const nextConfig = {
-  // Only use static export for GitHub Pages deployment
-  // Dev & Sanity Studio need server-side features
-  ...(isGitHubPages && { output: "export" }),
+  // Static export for GitHub Pages or static hosting (Netlify, Cloudflare Pages, etc.)
+  ...(isStaticExport && { output: "export" }),
   basePath: isGitHubPages ? "/CV-ADK-Akbar-Dharma-Karya" : "",
   env: {
     NEXT_PUBLIC_BASE_PATH: isGitHubPages ? "/CV-ADK-Akbar-Dharma-Karya" : "",
